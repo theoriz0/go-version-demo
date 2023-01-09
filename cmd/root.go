@@ -4,7 +4,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"go-version-demo/pkg/version"
+	"github/theoriz0/go-version-demo/pkg/version"
 	"os"
 
 	"github.com/spf13/cobra"

@@ -1,5 +1,14 @@
+# ==============================================================================
+# 定义全局 Makefile 变量方便后面引用
+
+COMMON_SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+# 项目根目录
+ROOT_DIR := $(abspath $(shell cd $(COMMON_SELF_DIR)/ && pwd -P))
+# 构建产物、临时文件存放目录
+OUTPUT_DIR := $(ROOT_DIR)/_output
+
 ## 指定应用使用的 version 包，会通过 `-ldflags -X` 向该包中指定的变量注入值
-VERSION_PACKAGE=github.com/theoriz0/go-version-example/pkg/version
+VERSION_PACKAGE=github/theoriz0/go-version-demo/pkg/version
 
 ## 定义 VERSION 语义化版本号
 ifeq ($(origin VERSION), undefined)
@@ -8,7 +17,7 @@ endif
 
 ## 检查代码仓库是否是 dirty（默认dirty）
 GIT_TREE_STATE:="dirty"
-ifeq (, $(shell git status --porcelain 2>/dev/null))
+ifeq (, $(shell git status --porcelain=2>/dev/null))
   GIT_TREE_STATE="clean"
 endif
 GIT_COMMIT:=$(shell git rev-parse HEAD)
@@ -29,7 +38,7 @@ all: format build
 
 .PHONY: build
 build: tidy # 编译源码，依赖 tidy 目标自动添加/移除依赖包.
-	@go build -v -ldflags "$(GO_LDFLAGS)" -o $(OUTPUT_DIR)/miniblog $(ROOT_DIR)/cmd/miniblog/main.go
+	go build -v -ldflags "$(GO_LDFLAGS)" -o $(OUTPUT_DIR)/gvdemo $(ROOT_DIR)/main.go
 
 .PHONY: tidy
 tidy: # 自动添加/移除依赖包.

@@ -1,4 +1,4 @@
-module go-version-demo
+module github/theoriz0/go-version-demo
 
 go 1.19
 
